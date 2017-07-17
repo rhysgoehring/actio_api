@@ -4,6 +4,8 @@ const knex = require('../knex.js');
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 router.get('/', (req, res, next) => {
   return knex('users').select('first_name', 'last_name', 'email', 'zip', 'profile_pic').then((users) => res.json(users)).catch((err) => next(err));
@@ -47,10 +49,9 @@ router.post('/', (req, res, next) => {
     knex('users').returning('*').insert(newUser).then((data) => {
       console.log(data)
       delete data.hashed_password;
-      res.cookie('userId',data[0].id);
-      res.cookie('zip', data[0].zip);
-      res.cookie('loggedIn',true);
-      res.json(data);
+      let token = jwt.sign(data[0], process.env.token)
+      res.send({token: token, currentUser: data[0]});
+      
     })
   })
 
