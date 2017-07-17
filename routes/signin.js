@@ -2,6 +2,7 @@ const express = require('express');
 const knex = require('../knex.js');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 
 
 
@@ -22,10 +23,12 @@ router.post('/', (req, res, next) =>{
         bcrypt.compare(testUser.password,data[0].hashed_password)
         .then((valid) =>{
           if(valid){
-            res.cookie('userId',data[0].id);
-            res.cookie('zip', data[0].zip);
-            res.cookie('loggedIn',true);
-            res.json({id:data[0].id})
+            let token = jwt.sign(data[0], process.env.token)
+            res.send({token: token, currentUser: data[0]});
+            // res.cookie('userId',data[0].id);
+            // res.cookie('zip', data[0].zip);
+            // res.cookie('loggedIn',true);
+            // res.json({id:data[0].id})
           }
           else{
             res.send(false);

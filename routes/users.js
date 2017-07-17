@@ -51,18 +51,8 @@ router.post('/', (req, res, next) => {
       delete data.hashed_password;
       let token = jwt.sign(data[0], process.env.token)
       res.send({token: token, currentUser: data[0]});
-      
     })
   })
-
-  // return knex('users')
-  //   .returning(['first_name', 'last_name', 'email', 'zip', 'profile_pic'])
-  //   .insert(newUser)
-  //   .then((data) => {
-  //     console.log(data)
-  //     res.json(data);
-  //   })
-  //   .catch((err) => next(err));
 });
 
 router.put('/:id', (req, res, next) => {
