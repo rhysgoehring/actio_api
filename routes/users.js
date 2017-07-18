@@ -40,14 +40,22 @@ router.get('/:id/events', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  const newUser = req.body;
-
+  const newUser = {
+    first_name : req.body.firstName,
+    last_name : req.body.lastName,
+    email : req.body.email,
+    password : req.body.password,
+    zip : req.body.zip,
+    profile_pic : req.body.profilePicUrl
+  }
+  
+  console.log('newUser', newUser)
   let saltRounds = 8;
   bcrypt.hash(newUser.password, saltRounds).then((hash) => {
     newUser.hashed_password = hash;
     delete newUser.password
     knex('users').returning('*').insert(newUser).then((data) => {
-      console.log(data)
+      console.log(data[0])
       delete data.hashed_password;
       let token = jwt.sign(data[0], process.env.token)
       res.send({token: token, currentUser: data[0]});

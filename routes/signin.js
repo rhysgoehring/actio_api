@@ -25,10 +25,6 @@ router.post('/', (req, res, next) =>{
           if(valid){
             let token = jwt.sign(data[0], process.env.token)
             res.send({token: token, currentUser: data[0]});
-            // res.cookie('userId',data[0].id);
-            // res.cookie('zip', data[0].zip);
-            // res.cookie('loggedIn',true);
-            // res.json({id:data[0].id})
           }
           else{
             res.send(false);
