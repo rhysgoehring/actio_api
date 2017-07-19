@@ -6,6 +6,8 @@ exports.up = function(knex) {
     table.string('name', 255).notNullable();
     table.integer('cat_id').references('id').inTable('categories').notNullable().onDelete('CASCADE');
     table.string('location').notNullable();
+    table.decimal('lat', 9,6);
+    table.decimal('lng', 9,6);
     table.string('description').notNullable();
     table.string('event_date').notNullable();
     table.integer('owner_id').references('id').inTable('users').notNullable().onDelete('CASCADE');
