@@ -135,6 +135,8 @@ exports.seed = function(knex) {
           name:'Swim with not Sam',
           cat_id: 3,
           location: '3870 Broadway St, Boulder, CO 80304',
+          lat: 40.044787,
+          lng: -105.28147000000001,
           owner_id:2,
           description: "Whoever hated that event with Sam can come swim with me!",
           event_date: '7-13-2017',
