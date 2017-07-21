@@ -27,7 +27,7 @@ exports.seed = function(knex, Promise) {
         },
         {id: 6,
         title: 'golfing',
-        icon: '.../public/images/golfing.png'
+        icon: '.../public/images/golfing.jpg'
         }
       ]);
     }).then(() => {
