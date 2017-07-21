@@ -18,7 +18,7 @@ router.get('/:id', (req, res, next) => {
 
 router.get('/:id/events', (req, res, next) => {
   const id = req.params.id;
-  return knex('events_users').select('*').where('user_id', id).innerJoin('events', 'events_users.event_id', 'events.id').then((events) => {
+  return knex('events_users').select('*').where('user_id', id).join('events', 'events_users.event_id', 'events.id').join('categories', 'events.cat_id', 'categories.id').then((events) => {
     knex('messages').then((messages) => {
       events.sort(function(a, b) {
         return a.id - b.id
@@ -48,7 +48,7 @@ router.post('/', (req, res, next) => {
     zip : req.body.zip,
     profile_pic : req.body.profilePicUrl
   }
-  
+
   console.log('newUser', newUser)
   let saltRounds = 8;
   bcrypt.hash(newUser.password, saltRounds).then((hash) => {
