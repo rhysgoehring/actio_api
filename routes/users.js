@@ -18,7 +18,7 @@ router.get('/:id', (req, res, next) => {
 
 router.get('/:id/events', (req, res, next) => {
   const id = req.params.id;
-  return knex('events_users').select('*').where('user_id', id).join('events', 'events_users.event_id', 'events.id').join('categories', 'events.cat_id', 'categories.id').then((events) => {
+  return knex('events_users').select('*').where('user_id', id).join('events', 'events_users.event_id', 'events.id').join('categories', 'events.cat_id', 'categories.id').select("events_users.id as eu_id").select('categories.id as category_id').then((events) => {
     knex('messages').then((messages) => {
       events.sort(function(a, b) {
         return a.id - b.id
