@@ -7,27 +7,27 @@ exports.seed = function(knex, Promise) {
       return knex('categories').insert([
         {id: 1,
         title: 'basketball',
-        icon: '.../public/images/basketball.jpg'
+        icon: 'https://s3-us-west-2.amazonaws.com/rhysactio/basketball.jpg'
         },
         {id: 2,
         title: 'hiking',
-        icon: '.../public/images/hiker.png'
+        icon: 'https://s3-us-west-2.amazonaws.com/rhysactio/hiker.png'
         },
         {id: 3,
         title: 'swimming',
-        icon: '.../public/images/swimming.png'
+        icon: 'https://s3-us-west-2.amazonaws.com/rhysactio/swimming.png'
         },
         {id: 4,
         title: 'climbing',
-        icon: '.../public/images/climbing.png'
+        icon: 'https://s3-us-west-2.amazonaws.com/rhysactio/climbing.png'
         },
         {id: 5,
         title: 'soccer',
-        icon: '.../public/images/soccer.png'
+        icon: 'https://s3-us-west-2.amazonaws.com/rhysactio/soccer.png'
         },
         {id: 6,
         title: 'golfing',
-        icon: '.../public/images/golfing.jpg'
+        icon: 'https://s3-us-west-2.amazonaws.com/rhysactio/golfing.jpg'
         }
       ]);
     }).then(() => {
