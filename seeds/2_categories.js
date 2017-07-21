@@ -7,7 +7,7 @@ exports.seed = function(knex, Promise) {
       return knex('categories').insert([
         {id: 1,
         title: 'basketball',
-        icon: 'https://s3-us-west-2.amazonaws.com/rhysactio/basketball.jpg'
+        icon: 'https://s3-us-west-2.amazonaws.com/rhysactio/basketball.png'
         },
         {id: 2,
         title: 'hiking',
