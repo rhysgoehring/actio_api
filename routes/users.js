@@ -13,7 +13,7 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
   const id = req.params.id;
-  return knex('users').select('first_name', 'last_name', 'email', 'zip', 'profile_pic').where('id', id).first().then((user) => res.json(user)).catch((err) => next(err));
+  return knex('users').select('first_name', 'last_name', 'email', 'about', 'zip', 'profile_pic').where('id', id).first().then((user) => res.json(user)).catch((err) => next(err));
 });
 
 router.get('/:id/events', (req, res, next) => {
