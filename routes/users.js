@@ -39,6 +39,13 @@ router.get('/:id/events', (req, res, next) => {
   }).catch((err) => next(err));
 });
 
+router.get('/:id/owned', (req,res,next) =>{
+  const id = req.params.id;
+  return knex('events').select('*').where('owner_id', id).then(data =>{
+    res.json(data);
+  })
+})
+
 router.post('/', (req, res, next) => {
   const newUser = {
     first_name : req.body.firstName,
