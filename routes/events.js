@@ -14,7 +14,7 @@ router.post('/', (req, res, next) => {
   .then((data) => res.json(data))
   .catch((err)=> next(err));
 });
-
+// Join Event
 router.post('/:id',(req,res,next) =>{
   const userId = req.body.userId;
   const id = req.params.id;
@@ -47,6 +47,7 @@ router.get('/:id/messages', (req, res, next) => {
   .catch((err)=> next(err));
 });
 
+// Gets all users attending event
 router.get('/:id/users', (req, res, next) => {
   const id = req.params.id;
   return knex('events_users')

@@ -41,7 +41,8 @@ router.get('/:id/events', (req, res, next) => {
 
 router.get('/:id/owned', (req,res,next) =>{
   const id = req.params.id;
-  return knex('events').select('*').where('owner_id', id).then(data =>{
+  return knex('events').select('*').where('owner_id', id).join('categories', 'events.cat_id', 'categories.id').select('categories.id as category_id')
+  .then(data => {
     res.json(data);
   })
 })
