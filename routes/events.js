@@ -92,14 +92,20 @@ return
 
 /* LIST */
 router.get('/', (req, res, next) => {
+// SELECT "events".*, "categories"."id" as "c_id" from "events" join "categories" on "events"."cat_id" = "categories"."id";
+  knex.raw('select "events".*, "categories"."id" as "c_id" from "events" join "categories" on "events"."cat_id" = "categories"."id"')
+    .then((events) => res.json(events.rows))
+    .catch((err) => next(err));
+  });
 
-  return knex('events')
-  .returning('*')
-  .join('categories', 'events.cat_id', 'categories.id')
-  .returning(['categories.title', 'categories.icon'])
-  .orderBy('created_at', 'asc')
-  .then((events) => res.json(events))
-  .catch((err) => next(err));
-});
+
+//   return knex('events')
+//   .returning('*')
+//   .join('categories', 'events.cat_id', 'categories.id')
+//   .returning(['categories.title', 'categories.icon'])
+//   .orderBy('created_at', 'asc')
+//   .then((events) => res.json(events))
+//   .catch((err) => next(err));
+// });
 
 module.exports = router;
