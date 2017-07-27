@@ -95,7 +95,8 @@ router.get('/', (req, res, next) => {
 
   return knex('events')
   .returning('*')
-  .join('categories', 'events.cat_id', 'categories.id as catId')
+  .join('categories', 'events.cat_id', 'categories.id')
+  .returning(['categories.title', 'categories.icon'])
   .orderBy('created_at', 'asc')
   .then((events) => res.json(events))
   .catch((err) => next(err));
