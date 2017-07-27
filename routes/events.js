@@ -93,7 +93,7 @@ return
 /* LIST */
 router.get('/', (req, res, next) => {
 // SELECT "events".*, "categories"."id" as "c_id" from "events" join "categories" on "events"."cat_id" = "categories"."id";
-  knex.raw('select "events".*, "categories"."id" as "c_id" from "events" join "categories" on "events"."cat_id" = "categories"."id"')
+  knex.raw('select "events".*, "categories"."id" as "c_id", "categories".title as "title", "categories".icon as "icon" from "events" join "categories" on "events"."cat_id" = "categories"."id"')
     .then((events) => res.json(events.rows))
     .catch((err) => next(err));
   });
