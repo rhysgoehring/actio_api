@@ -94,8 +94,8 @@ return
 router.get('/', (req, res, next) => {
 
   return knex('events')
-  .returning('*')
   .select('events.id as eventId')
+  .returning('*')
   .join('categories', 'events.cat_id', 'categories.id')
   .orderBy('created_at', 'asc')
   .then((events) => res.json(events))
