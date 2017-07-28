@@ -14,7 +14,7 @@ router.post('/', (req, res, next) => {
   .then((data)=> res.json(data))
   .catch((err)=> next(err));
 });
-
+// Join Event
 router.post('/:id',(req,res,next) =>{
   const userId = req.body.userId;
   const id = req.params.id;
@@ -47,6 +47,7 @@ router.get('/:id/messages', (req, res, next) => {
   .catch((err)=> next(err));
 });
 
+// Gets all users attending event
 router.get('/:id/users', (req, res, next) => {
   const id = req.params.id;
   return knex('events_users')
@@ -92,6 +93,7 @@ return
 /* LIST */
 router.get('/', (req, res, next) => {
 
+<<<<<<< HEAD
   return knex('events')
   .returning('*')
   .join('categories', 'events.cat_id', 'categories.id')
@@ -99,5 +101,12 @@ router.get('/', (req, res, next) => {
   .then((events)=> res.json(events))
   .catch((err)=> next(err));
 });
+=======
+  knex.raw('select "events".*, "categories"."id" as "c_id", "categories".title as "title", "categories".icon as "icon" from "events" join "categories" on "events"."cat_id" = "categories"."id"')
+    .then((events) => res.json(events.rows))
+    .catch((err) => next(err));
+  });
+
+>>>>>>> e42dc992e666aa0db8cac0188dfc5aff4c9312b0
 
 module.exports = router;
