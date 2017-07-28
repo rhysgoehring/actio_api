@@ -11,7 +11,7 @@ router.post('/', (req, res, next) => {
   return knex('events')
   .returning('*')
   .insert(newEvent)
-  .then((data) => res.json(data))
+  .then((data)=> res.json(data))
   .catch((err)=> next(err));
 });
 
@@ -21,8 +21,8 @@ router.post('/:id',(req,res,next) =>{
   console.log('adding', userId, "to", id);
   knex('events_users')
     .insert({event_id:id,user_id:userId})
-    .then((data) => res.json(data))
-    .catch((err) => next(err));
+    .then((data)=> res.json(data))
+    .catch((err)=> next(err));
 })
 
 /* READ */
@@ -96,8 +96,8 @@ router.get('/', (req, res, next) => {
   .returning('*')
   .join('categories', 'events.cat_id', 'categories.id')
   .orderBy('created_at', 'asc')
-  .then((events) => res.json(events))
-  .catch((err) => next(err));
+  .then((events)=> res.json(events))
+  .catch((err)=> next(err));
 });
 
 module.exports = router;
