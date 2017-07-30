@@ -6,8 +6,23 @@ const knex = require('../knex');
 
 /* CREATE */
 router.post('/', (req, res, next) => {
-  const newEvent = req.body;
-  newEvent.cat_id = Number.parseInt(newEvent.cat_id);
+  console.log('request:', req.body)
+  const newEvent =
+    {
+      name: req.body.name,
+      cat_id: Number.parseInt(req.body.cat_id),
+      location: req.body.location,
+      lat: null,
+      lng: null,
+      description: req.body.description,
+      event_date: req.body.event_date,
+      owner_id: req.body.owner_id,
+      skill_level: req.body.skill_level,
+      event_pic: req.body.event_pic
+  }
+  console.log('newEvent', newEvent)
+  console.log('newEvent.cat_id', newEvent.cat_id)
+  // newEvent.cat_id = Number.parseInt(newEvent.cat_id);
   return knex('events')
   .returning('*')
   .insert(newEvent)
