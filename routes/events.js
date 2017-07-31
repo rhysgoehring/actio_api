@@ -6,6 +6,7 @@ const knex = require('../knex');
 
 /* CREATE */
 router.post('/', (req, res, next) => {
+  console.log('here');
   console.log('request:', req.body)
   const newEvent =
     {
@@ -20,14 +21,31 @@ router.post('/', (req, res, next) => {
       skill_level: req.body.skill_level,
       event_pic: req.body.event_pic
   }
-  console.log('newEvent', newEvent)
-  console.log('newEvent.cat_id', newEvent.cat_id)
   // newEvent.cat_id = Number.parseInt(newEvent.cat_id);
   return knex('events')
   .returning('*')
   .insert(newEvent)
-  .then((data)=> res.json(data))
-  .catch((err)=> next(err));
+  .then(ev => {
+    return knex('categories')
+      .where('id', ev[0].cat_id)
+      .returning('*')
+      .then((cat) =>{
+        ev[0]['title'] = cat[0].title;
+        ev[0]['icon'] = cat[0].icon;
+        ev[0]['c_id'] = cat[0].id;
+        return ev[0];
+      })
+      .then((data) => {
+        console.log(data);
+        return knex('events_users').insert({'event_id':data.id,'user_id':data.owner_id})
+        .then((resp) => data)
+      })
+      .then((data) => res.json(data));
+  })
+  .catch((err)=> {
+    console.log(err)
+    next(err);
+    });
 });
 // Join Event
 router.post('/:id',(req,res,next) =>{
