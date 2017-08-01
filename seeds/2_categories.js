@@ -27,7 +27,7 @@ exports.seed = function(knex, Promise) {
         },
         {id: 6,
         title: 'golfing',
-        icon: 'https://s3-us-west-2.amazonaws.com/rhysactio/golfing.jpg'
+        icon: 'https://s3-us-west-2.amazonaws.com/rhysactio/golfing.png'
         }
       ]);
     }).then(() => {
