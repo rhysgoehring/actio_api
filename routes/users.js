@@ -39,13 +39,12 @@ router.get('/:id/events', (req, res, next) => {
   }).catch((err) => next(err));
 });
 
-router.get('/:id/owned', (req,res,next) =>{
+router.get('/:id/owned', (req,res,next) => {
   const id = req.params.id;
-  return knex('events').select('*').where('owner_id', id).join('categories', 'events.cat_id', 'categories.id').select('categories.id as category_id')
-  .then(data => {
-    res.json(data);
-  })
-})
+  knex.raw('select "events".*, "categories"."id" as "c_id", "categories".title as "title", "categories".icon as "icon" from "events" join "categories" on "events"."cat_id" = "categories"."id" where "events"."owner_id" = ' + id + '')
+    .then((events) => res.json(events.rows))
+    .catch((err) => next(err));
+  });
 
 router.post('/', (req, res, next) => {
   const newUser = {
