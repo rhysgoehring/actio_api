@@ -19,24 +19,7 @@ router.get('/:id', (req, res, next) => {
 router.get('/:id/events', (req, res, next) => {
   const id = req.params.id;
   return knex('events_users').select('*').where('user_id', id).join('events', 'events_users.event_id', 'events.id').join('categories', 'events.cat_id', 'categories.id').select("events_users.id as eu_id").select('categories.id as category_id').then((events) => {
-    knex('messages').then((messages) => {
-      events.sort(function(a, b) {
-        return a.id - b.id
-      })
-      for (let i = 0; i < messages.length; i++) {
-        let index = messages[i].event_id;
-        for(let j = 0; j < events.length; j++){
-          if(events[j].event_id == index){
-            if (events[j].messages == undefined) {
-              events[j].messages = [];
-            }
-            events[j].messages.push({title: messages[i].title, body: messages[i].body})
-          }
-        }
-      }
-      res.json(events);
-    })
-  }).catch((err) => next(err));
+    res.json(events)}).catch((err) => next(err));
 });
 
 router.get('/:id/owned', (req,res,next) => {
