@@ -5,8 +5,6 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-
-
 const api = require('./routes/api');
 const app = express();
 
@@ -37,6 +35,8 @@ app.use('/api', api)
 
 
 app.use(function(err, req, res, next) {
+  console.log('here');
+  console.log(err);
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 

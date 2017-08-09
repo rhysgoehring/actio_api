@@ -58,9 +58,23 @@ router.post('/:id',(req,res,next) =>{
     .catch((err)=> next(err));
 })
 
+router.delete('/delete/:id',(req,res,next) =>{
+  console.log("before request");
+  const userId = req.body.userId;
+  const id = req.params.id;
+  console.log('right before knex call');
+  return knex('events_users')
+    .where('event_id',id)
+    .andWhere('user_id',userId)
+    .del()
+    .then((data)=> {
+      console.log("after request")
+      res.json(data)
+    })
+    .catch((err)=> next(err));
+})
 /* READ */
 router.get('/:id', (req, res, next) => {
-  console.log('here');
   const id = req.params.id;
   return knex('events')
   .select('*')
