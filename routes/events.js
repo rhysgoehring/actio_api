@@ -58,10 +58,12 @@ router.post('/:id',(req,res,next) =>{
     .catch((err)=> next(err));
 })
 
-router.delete('/delete/:id',(req,res,next) =>{
+router.delete('/delete/:id/:userId',(req,res,next) =>{
   console.log("before request");
-  const userId = req.body.userId;
+  const userId = req.params.userId;
   const id = req.params.id;
+  console.log('userId', userId);
+  console.log('id', id);
   console.log('right before knex call');
   return knex('events_users')
     .where('event_id',id)
