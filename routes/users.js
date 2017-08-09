@@ -56,7 +56,7 @@ router.post('/', (req, res, next) => {
 router.put('/:id', (req, res, next) => {
   const id = req.params.id;
   const changes = req.body;
-  return knex('users').returning(['first_name', 'last_name', 'email', 'zip', 'profile_pic', 'about']).where('id', id).update(changes).then((updated) => res.json(updated)).catch((err) => next(err));
+  return knex('users').returning(['id','first_name', 'last_name', 'email', 'zip', 'profile_pic', 'about']).where('id', id).update(changes).then((updated) => res.json(updated)).catch((err) => next(err));
 });
 
 router.delete('/:id', (req, res, next) => {
