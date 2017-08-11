@@ -67,7 +67,7 @@ exports.seed = function(knex) {
         },
         {
           id:6,
-          name:'Beginners Pickup Game',
+          name:'Horse',
           cat_id: 1,
           location: '5660 Sioux Dr, Boulder, CO 80303',
           lat: 39.992141,
